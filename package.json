@@ -1,0 +1,26 @@
+{
+  "name": "connect-stats",
+  "version": "0.0.1",
+  "description": "luster-stats monitoring as connect middleware",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . && jscs .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.yandex-team.ru/nodules/connect-stats.git"
+  },
+  "keywords": [
+    "connect",
+    "stats"
+  ],
+  "author": "Vladimir Varankin <nek.narqo@gmail.com> (http://github.com/narqo)",
+  "license": "WTFPL",
+  "devDependencies": {
+    "eslint": "^1.10.2",
+    "eslint-config-nodules": "^0.1.1",
+    "jscs": "^2.6.0",
+    "jscs-preset-nodules": "^0.1.0"
+  }
+}
