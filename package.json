@@ -4,7 +4,7 @@
   "description": "luster-stats monitoring as connect middleware",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint . && jscs .",
+    "lint": "eslint index.js && jscs index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,10 +17,16 @@
   ],
   "author": "Vladimir Varankin <nek.narqo@gmail.com> (http://github.com/narqo)",
   "license": "WTFPL",
+  "dependencies": {
+    "on-finished": "^2.3.0"
+  },
   "devDependencies": {
     "eslint": "^1.10.2",
     "eslint-config-nodules": "^0.1.1",
     "jscs": "^2.6.0",
     "jscs-preset-nodules": "^0.1.0"
+  },
+  "directories": {
+    "example": "example"
   }
 }

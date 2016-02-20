@@ -9,17 +9,16 @@
 ## Usage
 
 ~~~js
-// app/index.js
+// server.js
 
-var connect = require('connect');
-var statsMiddleware = require('connect-stats'),
+var connect = require('connect'),
+    statsMiddleware = require('connect-stats'),
     stats = require('luster').stats;
 
-var app = connect().use(statsMiddleware({
-    stats: stats,
-    getStatsPrefix: function(req) {
-        return 'app.stats.status';
-    }
+var app = connect()
+
+app.use(statsMiddleware(stats, function getStatsPrefix(req) {
+    return 'app.stats.status';
 }));
 ~~~
 

@@ -1,46 +1,44 @@
-exports = module.exports = function(opts) {
+var onFinished = require('on-finished');
+
+function defaultStatsPrefix() {
+    return 'unknown';
+}
+
+exports = module.exports = function(opts, getStatsPrefix) {
     if (typeof opts === 'undefined') {
         opts = {};
     }
 
-    var stats = opts.stats,
-        count;
+    var stats;
 
-    if (typeof stats === 'undefined' || typeof stats.count !== 'function') {
-        count = function() {};
+    if (typeof opts.count === 'function') {
+        stats = opts;
     } else {
-        count = stats.count.bind(stats);
+        stats = opts.stats;
     }
 
-    var getStatsPrefix = opts.getStatsPrefix;
+    var count = typeof stats !== 'undefined' && typeof stats.count === 'function' ?
+        stats.count.bind(stats) : null;
 
     if (typeof getStatsPrefix !== 'function') {
-        getStatsPrefix = function() {
-            return 'unknown';
-        };
+        getStatsPrefix = defaultStatsPrefix;
     }
 
     return function statsMiddleware(req, res, next) {
-        function doStats() {
+        onFinished(res, function(err, res) {
+            if (count === null || err !== null) {
+                return;
+            }
+
             var key = getStatsPrefix(req),
                 statusCode = res.statusCode || 'unknown';
 
             if (key) {
                 count('stats.' + key + '.status.' + statusCode);
             }
-        }
-
-        function cleanup() {
-            res.removeListener('finish', doStats);
-            res.removeListener('error', cleanup);
-            res.removeListener('close', cleanup);
-        }
-
-        // Add response listeners
-        res.once('finish', doStats);
-        res.once('error', cleanup);
-        res.once('close', cleanup);
-
+        });
         next();
     };
 };
+
+exports.defaultStatsPrefix = defaultStatsPrefix;
