@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## UNRELEASED
+## 0.1.0
 
 - Initial public release.
 - Rename to "express-status-counter"
