@@ -1,8 +1,8 @@
 var url = require('url'),
     express = require('express'),
-    statsMiddleware = require('../');
+    statusCounterMiddleware = require('../');
 
-const stats = {
+const statusCounter = {
     count(metric) {
         console.log(metric);
     }
@@ -10,9 +10,11 @@ const stats = {
 
 const app = express();
 
-app.use(statsMiddleware(stats, req => {
-    var reqUrl = url.parse(req.url);
-    return reqUrl.pathname.replace(/^\/|\/\$/g, '').replace(/\//g, '.');
+app.use(statusCounterMiddleware(statusCounter, req => {
+    return url.parse(req.url).pathname
+        .replace(/^\/|\/\$/g, '')
+        .replace(/\./g, '_')
+        .replace(/\//g, '.') + '.status';
 }));
 
 const server = app.listen(8000, function() {

@@ -1,19 +1,21 @@
 {
-  "name": "connect-stats",
+  "name": "express-status-counter",
   "version": "0.0.2",
-  "description": "luster-stats monitoring as connect middleware",
+  "description": "express middleware that counts response by the first digit of its HTTP status codes",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js && jscs index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ignore-path .gitignore",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.yandex-team.ru/nodules/connect-stats.git"
+    "url": "git://github.com/narqo/express-status-counter.git"
   },
   "keywords": [
     "connect",
-    "stats"
+    "express",
+    "metrics",
+    "status-counter"
   ],
   "author": "Vladimir Varankin <nek.narqo@gmail.com> (http://github.com/narqo)",
   "license": "WTFPL",
@@ -21,12 +23,14 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "eslint": "^1.10.2",
-    "eslint-config-nodules": "^0.1.1",
-    "jscs": "^2.6.0",
-    "jscs-preset-nodules": "^0.1.0"
+    "eslint": "^2.10.2",
+    "eslint-config-nodules": "^0.3.1"
   },
   "directories": {
     "example": "example"
-  }
+  },
+  "files": [
+    "index.js",
+    "*.md"
+  ]
 }

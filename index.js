@@ -1,10 +1,11 @@
-var onFinished = require('on-finished');
+var util = require('util'),
+    onFinished = require('on-finished');
 
-function defaultStatsPrefix() {
+var defaultPrefix = function() {
     return 'unknown';
-}
+};
 
-exports = module.exports = function(opts, getStatsPrefix) {
+exports = module.exports = function(opts, getNamePrefix) {
     if (typeof opts === 'undefined') {
         opts = {};
     }
@@ -17,28 +18,28 @@ exports = module.exports = function(opts, getStatsPrefix) {
         stats = opts.stats;
     }
 
-    var count = typeof stats !== 'undefined' && typeof stats.count === 'function' ?
+    var counter = typeof stats !== 'undefined' && typeof stats.count === 'function' ?
         stats.count.bind(stats) : null;
 
-    if (typeof getStatsPrefix !== 'function') {
-        getStatsPrefix = defaultStatsPrefix;
+    if (typeof getNamePrefix !== 'function') {
+        getNamePrefix = defaultPrefix;
     }
 
     return function statsMiddleware(req, res, next) {
         onFinished(res, function(err, res) {
-            if (count === null || err !== null) {
+            if (err !== null || counter === null) {
                 return;
             }
 
-            var key = getStatsPrefix(req),
-                statusCode = res.statusCode || 'unknown';
+            var name = getNamePrefix(req),
+                statusCode = res.statusCode || 0;
 
-            if (key) {
-                count('stats.' + key + '.status.' + statusCode);
+            if (name) {
+                counter(util.format('%s-%dxx', name, parseInt(statusCode / 100, 10)));
             }
         });
         next();
     };
 };
 
-exports.defaultStatsPrefix = defaultStatsPrefix;
+exports.defaultStatusNamePrefix = defaultPrefix;

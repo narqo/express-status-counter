@@ -1,9 +1,9 @@
-# connect-stats
+# express-status-counter
 
 ## Install
 
 ~~~
-› npm install git://github.yandex-team.ru/nodules/connect-stats.git
+› npm install -S express-status-counter
 ~~~
 
 ## Usage
@@ -12,12 +12,12 @@
 // server.js
 
 var connect = require('connect'),
-    statsMiddleware = require('connect-stats'),
+    statusCounterMiddleware = require('express-status-counter'),
     stats = require('luster').stats;
 
 var app = connect()
 
-app.use(statsMiddleware(stats, function getStatsPrefix(req) {
+app.use(statusCounterMiddleware(stats, function getStatusNamePrefix(req) {
     return 'app.stats.status';
 }));
 ~~~
@@ -26,4 +26,4 @@ app.use(statsMiddleware(stats, function getStatsPrefix(req) {
 
 ### `Object stats`
 
-### `Function getStatsPrefix`
+### `Function getStatusNamePrefix`
