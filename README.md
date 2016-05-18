@@ -1,5 +1,6 @@
 # express-status-counter
 
+[![NPM version][https://img.shields.io/npm/v/express-status-counter.svg?style=flat]][https://npmjs.org/package/express-status-counter]
 [![Build Status](https://travis-ci.org/narqo/express-status-counter.svg)](https://travis-ci.org/narqo/express-status-counter)
 [![Dependency Status](https://david-dm.org/narqo/react-islands.svg)](https://david-dm.org/narqo/express-status-counter)
 [![devDependency Status](https://david-dm.org/narqo/react-islands/dev-status.svg)](https://david-dm.org/narqo/express-status-counter#info=devDependencies)
